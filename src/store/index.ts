@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import boardModule from "@/board/store/boardModule";
 import accountModule from '@/account/store/accountModule';
+import authenticationModule from '@/authentication/store/authenticationModule';
 
 export default createStore({
   state: {
@@ -13,6 +14,7 @@ export default createStore({
   },
   modules: {
     boardModule,
-    accountModule
+    accountModule,
+    authenticationModule,
   }
 })
