@@ -1,13 +1,13 @@
 <template>
     <v-container class="container">
-        <v-card flat class="logo-card">
+        <!-- <v-card flat class="logo-card">
             <v-img
                 width="100%"
                 height="100%"
                 :src="require('@/assets/images/fixed/logo_waiting.png')"
                 @click="goToHome"
             />
-        </v-card>
+        </v-card> -->
 
         <div class="login-wrapper">
             <div>
@@ -30,7 +30,7 @@
                             variant="solo"
                             v-model="email"
                             color="#fff"
-                            bg-color="rgba(0, 0, 0, 0.6)"
+                            bg-color="rgba(20, 20, 20, 0.6)"
                             clearable
                             :rules="[emailRequired]"
                         />
@@ -40,7 +40,7 @@
                             variant="solo"
                             v-model="password"
                             color="#fff"
-                            bg-color="rgba(0, 0, 0, 0.6)"
+                            bg-color="rgba(20, 20, 20, 0.6)"
                             :rules="[passwordRequired]"
                             :append-inner-icon="
                                 visible ? 'mdi-eye-off' : 'mdi-eye'

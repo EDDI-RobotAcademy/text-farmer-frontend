@@ -1,8 +1,10 @@
 <template>
     <v-app-bar color="black" app dark height="40">
-      <v-toolbar-title class="top-bar-text-title">
-        T–F
-      </v-toolbar-title>
+      <v-btn @click="goToHome">
+        <v-toolbar-title class="top-bar-text-title">
+          T–F
+        </v-toolbar-title>
+    </v-btn>
       <v-spacer></v-spacer>
   
       <v-btn v-if="!isAuthenticatedKakao && !isAuthenticatedNormal" text @click="signIn">
@@ -82,7 +84,6 @@
   <style scoped>
   .top-bar-text-title {
     font-size: 24px;
-    font-weight: bold;
   }
   
   .v-btn:hover {
