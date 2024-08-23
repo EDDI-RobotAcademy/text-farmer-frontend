@@ -43,7 +43,7 @@ export default {
     },
     computed: {
         hideMenuBar() {
-            const hiddenRoutes = ["/"];
+            const hiddenRoutes = ["/", "/account/login"];
 
             return !hiddenRoutes.includes(this.$route.path);
         },
