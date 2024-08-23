@@ -1,4 +1,5 @@
 <template>
+    <button class="loginButton">로그인</button>
     <div class="section wrapper">
         <div class="content">
             <div class="panel panelT">
@@ -112,9 +113,9 @@ onMounted(() => {
                 });
 
                 gsap.to(".textT", {
-                    // x: () => window.innerWidth - textExtWidth * 2 - textTWidth * 2,
                     x: () => {
-                        return textTRect.width - textExtRect.width;
+                        // return textTRect.width - textExtRect.width;
+                        return textExtRect.width - textTRect.right;
                     },
                     scrollTrigger: {
                         trigger: ".panelT",
@@ -166,7 +167,7 @@ onMounted(() => {
         });
 
         gsap.to(".about", {
-            y: window.innerHeight * 2.3,
+            y: window.innerHeight * 2.5,
             scrollTrigger: {
                 trigger: ".section2",
                 start: "top-=80% top",
@@ -198,6 +199,18 @@ onUnmounted(() => {
 body {
     margin: 0;
     font-family: "Signika Negative", sans-serif, Arial;
+}
+
+.loginButton {
+    width: 5%;
+    height: 5%;
+    position: fixed;
+    top: 1%;
+    right: 2%;
+    z-index: 5;
+    color: #8088b2;
+    font-weight: bold;
+    border: 1px solid #8088b2;
 }
 
 .section {
@@ -269,7 +282,7 @@ body {
 }
 
 .about {
-    font-size: 30rem;
+    font-size: 25rem;
     font-weight: 1000;
     transform: rotate(270deg);
     transform-origin: top left;
