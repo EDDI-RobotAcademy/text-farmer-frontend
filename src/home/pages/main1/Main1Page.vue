@@ -36,6 +36,16 @@ onMounted(() => {
         const textTRect = textTElement.getBoundingClientRect();
         const textExtRect = textExtElement.getBoundingClientRect();
 
+        let scrollTimeout;
+
+        let scrollPosition = window.scrollY;
+
+        const preventScroll = () => {
+            window.scrollTo(0, scrollPosition);
+        };
+
+        window.addEventListener("scroll", preventScroll);
+
         gsap.to(panels, {
             xPercent: (i) => -100 * i,
             // x: (i) => i && 50 * (i - 1),
@@ -55,6 +65,8 @@ onMounted(() => {
             backgroundPosition: "100% 100%",
             ease: "power2.inOut",
             onComplete: () => {
+                window.removeEventListener("scroll", preventScroll);
+
                 const resetRotation = () => {
                     gsap.to(".textT", {
                         rotation: 0,
@@ -62,6 +74,32 @@ onMounted(() => {
                         ease: "power2.out",
                     });
                 };
+
+                gsap.to(".textT", {
+                    rotation: () => 0,
+                    scrollTrigger: {
+                        trigger: ".panelT",
+                        start: "top top",
+                        end: "+=" + 140 + "%",
+                        scrub: true,
+                        onUpdate: (self) => {
+                            const direction = self.direction;
+                            const maxRotation = 2;
+
+                            gsap.to(".textT", {
+                                rotation:
+                                    direction === 1
+                                        ? maxRotation
+                                        : -maxRotation,
+                                duration: 0.1,
+                                ease: "power1.out",
+                            });
+
+                            clearTimeout(scrollTimeout);
+                            scrollTimeout = setTimeout(resetRotation, 150);
+                        },
+                    },
+                });
 
                 gsap.to(".textT", {
                     // x: () => window.innerWidth - textExtWidth * 2 - textTWidth * 2,
