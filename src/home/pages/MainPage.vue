@@ -198,7 +198,6 @@ onUnmounted(() => {
 
 body {
     margin: 0;
-    font-family: "Signika Negative", sans-serif, Arial;
 }
 
 .loginButton {
@@ -208,15 +207,14 @@ body {
     top: 1%;
     right: 2%;
     z-index: 5;
-    color: #8088b2;
+    color: var(--tertiary-color);
     font-weight: bold;
-    border: 1px solid #8088b2;
+    border: 1px solid var(--tertiary-color);
 }
 
 .section {
     width: 100%;
     height: 100vh;
-    background-color: tomato;
 }
 
 .wrapper {
@@ -242,14 +240,18 @@ body {
 }
 
 .panel:nth-child(1) {
-    background-color: #202020;
+    background-color: var(--primary-color);
     transform: none !important;
 }
 
 .textT {
-    background: linear-gradient(0deg, #fff 50%, transparent 50%);
+    background: linear-gradient(
+        0deg,
+        var(--secondary-color) 50%,
+        transparent 50%
+    );
     -webkit-background-clip: text;
-    -webkit-text-stroke: 1px #fff;
+    -webkit-text-stroke: 1px var(--secondary-color);
     background-clip: text;
     color: transparent;
     background-size: 100% 200%;
@@ -258,21 +260,25 @@ body {
 }
 
 .panel:nth-child(2) {
-    background-color: #ffffff;
+    background-color: var(--secondary-color);
+}
+
+.textExt {
+    color: var(--primary-color);
 }
 
 .panel:nth-child(3) {
-    background-color: #ffffff;
+    background-color: var(--secondary-color);
     z-index: -1;
 }
 
 .panel:nth-child(4) {
-    background-color: #202020;
+    background-color: var(--primary-color);
     z-index: 2;
 }
 
 .textFarmer {
-    color: #ffffff;
+    color: var(--secondary-color);
 }
 
 .section2 {
@@ -286,7 +292,7 @@ body {
     font-weight: 1000;
     transform: rotate(270deg);
     transform-origin: top left;
-    color: #202020;
+    color: var(--primary-color);
 }
 
 .introduce {

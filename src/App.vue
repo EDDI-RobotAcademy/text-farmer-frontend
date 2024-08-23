@@ -28,6 +28,12 @@ export default defineComponent({
     font-family: "OAGothic", sans-serif !important;
 }
 
+:root {
+    --primary-color: #202020;
+    --secondary-color: #f2f2f2;
+    --tertiary-color: #8088b2;
+}
+
 @font-face {
     font-family: "OAGothic";
 
