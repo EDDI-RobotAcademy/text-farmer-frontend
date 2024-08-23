@@ -15,7 +15,17 @@
             </div>
         </div>
     </div>
-    <div class="section2">Hello</div>
+    <div class="section2 wrapper">
+        <div class="about">ABOUT</div>
+        <div class="introduce">
+            안녕하세요<br />
+            소개글 영역입니다.<br /><br />
+            소개글 영역입니다2<br />
+            소개글 영역입니다3<br />
+            소개글 영역입니다4<br />
+            <button>로그인 버튼</button>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -154,6 +164,24 @@ onMounted(() => {
                 scrub: true,
             },
         });
+
+        gsap.to(".about", {
+            y: window.innerHeight * 2.3,
+            scrollTrigger: {
+                trigger: ".section2",
+                start: "top-=80% top",
+                scrub: 1.5,
+            },
+        });
+
+        gsap.to(".introduce", {
+            x: () => -window.innerWidth / 2,
+            scrollTrigger: {
+                trigger: ".section2",
+                start: "top-=200% top",
+                scrub: false,
+            },
+        });
     });
 });
 
@@ -237,5 +265,20 @@ body {
 .section2 {
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
+}
+
+.about {
+    font-size: 30rem;
+    font-weight: 1000;
+    transform: rotate(270deg);
+    transform-origin: top left;
+    color: #202020;
+}
+
+.introduce {
+    white-space: nowrap;
+    font-size: 3rem;
+    font-weight: bold;
 }
 </style>
