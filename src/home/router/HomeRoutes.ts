@@ -1,10 +1,10 @@
-import HomeView from "../pages/main/HomeView.vue";
+import MainPage from "../pages/MainPage.vue";
 
 const HomeRoutes = [
     {
         path: "/",
-        name: "HomeView",
-        component: HomeView,
+        name: "MainPage",
+        component: MainPage,
     },
 ];
 
