@@ -279,6 +279,7 @@ body {
 
 .textFarmer {
     color: var(--secondary-color);
+    text-shadow: 5px 5px 4px #bdbdbd;
 }
 
 .section2 {
