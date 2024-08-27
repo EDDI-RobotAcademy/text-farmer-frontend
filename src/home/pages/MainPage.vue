@@ -1,5 +1,7 @@
 <template>
-    <button class="loginButton">로그인</button>
+    <button class="loginButton">
+        <router-link to="/account/login">로그인</router-link>
+    </button>
     <div class="section wrapper">
         <div class="content">
             <div class="panel panelT">
@@ -19,12 +21,20 @@
     <div class="section2 wrapper">
         <div class="about">ABOUT</div>
         <div class="introduce">
-            안녕하세요<br />
-            소개글 영역입니다.<br /><br />
-            소개글 영역입니다2<br />
-            소개글 영역입니다3<br />
-            소개글 영역입니다4<br />
-            <button>로그인 버튼</button>
+            <h1 class="text">돌팔이<span>보다 정확한</span></h1>
+            <br />
+            <h1 class="text">전문가<span>보다 가까운</span></h1>
+            <br />
+            <h1 class="text">헬스케어<span>챗봇 서비스</span></h1>
+            <br />
+            <h1 class="text">
+                아직 회원이 아니신가요?
+                <span>
+                    <router-link to="/account/login">
+                        여기를 눌러 지금 바로 가입하세요.
+                    </router-link>
+                </span>
+            </h1>
         </div>
     </div>
 </template>
@@ -39,8 +49,15 @@ gsap.registerPlugin(ScrollTrigger);
 let ctx;
 
 onMounted(() => {
+    window.onload = function () {
+        this.setTimeout(function () {
+            scrollTo(0, 0);
+        }, 100);
+    };
+
     ctx = gsap.context(() => {
         const panels = gsap.utils.toArray(".panel");
+        const introudceTextElements = gsap.utils.toArray(".text");
         const textTElement = document.querySelector(".textT");
         const textExtElement = document.querySelector(".textExt");
 
@@ -72,7 +89,7 @@ onMounted(() => {
         });
 
         gsap.to(".textT", {
-            duration: 2.5,
+            duration: 0.1,
             backgroundPosition: "100% 100%",
             ease: "power2.inOut",
             onComplete: () => {
@@ -183,6 +200,19 @@ onMounted(() => {
                 scrub: false,
             },
         });
+
+        introudceTextElements.forEach((text) => {
+            gsap.to(text, {
+                backgroundSize: "100%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: text,
+                    start: "center 100%",
+                    end: "center 100%",
+                    scrub: true,
+                },
+            });
+        });
     });
 });
 
@@ -210,6 +240,11 @@ body {
     color: var(--tertiary-color);
     font-weight: bold;
     border: 1px solid var(--tertiary-color);
+}
+
+a {
+    color: var(--tertiary-color);
+    text-decoration: none;
 }
 
 .section {
@@ -297,8 +332,81 @@ body {
 }
 
 .introduce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     white-space: nowrap;
     font-size: 3rem;
     font-weight: bold;
+}
+
+.text {
+    font-size: 10vw;
+    letter-spacing: -0.01em;
+    line-height: 100%;
+    margin: 0;
+
+    width: 100%;
+    color: rgb(182, 182, 182, 0.2);
+    background: linear-gradient(
+            to right,
+            var(--primary-color),
+            var(--primary-color)
+        )
+        no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 0%;
+    transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+
+    border-bottom: 1px solid #2f2b28;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+}
+
+.text:nth-of-type(4) {
+    font-size: 4vw;
+    color: var(--tertiary-color);
+    cursor: pointer;
+}
+
+.text:nth-of-type(4) > span {
+    font-size: 2.85vw;
+    background-color: var(--tertiary-color);
+}
+
+.text:nth-of-type(4) > span > a {
+    font-size: 2.85vw;
+    color: var(--secondary-color);
+    background-color: var(--tertiary-color);
+}
+
+span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-size: 7vw;
+
+    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+    transform-origin: center;
+    transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text:hover > span {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.divider {
+    height: 10px;
 }
 </style>
