@@ -8,18 +8,15 @@ export type AccountActions = {
         context: ActionContext<AccountState, any>,
         email: string
     ): Promise<boolean>;
-    requestNicknameDuplicationCheckToDjango(
-        context: ActionContext<AccountState, any>,
-        payload: any
-    ): Promise<boolean>;
+
     requestCreateNewAccountToDjango(
         context: ActionContext<any, any>,
-        accountInfo: {
-            email: string;
-            nickname: string;
-            gender: string;
-            birthyear: string;
-        }
+        accountInfo: { email: string }
+    ): Promise<void>;
+
+    requestFindEmailByAccountIdToDjango(
+        context: ActionContext<AccountState, any>,
+        accountId: number
     ): Promise<void>;
 };
 
@@ -34,29 +31,10 @@ const actions: AccountActions = {
         );
         return response.data.isDuplicate;
     },
-    async requestNicknameDuplicationCheckToDjango(
-        context: ActionContext<AccountState, any>,
-        payload: any
-    ): Promise<boolean> {
-        const { newNickname } = payload;
 
-        return axiosInst.djangoAxiosInst.post(
-            "/account/nickname-duplication-check",
-            { newNickname: newNickname }
-        );
-        // .then((res) => {
-        //     if (res.data) {
-        //         alert('사용 가능한 닉네임입니다!')
-        //         return false
-        //     } else {
-        //         alert('중복된 닉네임입니다!')
-        //         return true
-        //     }
-        // })
-    },
     async requestCreateNewAccountToDjango(
         context: ActionContext<any, any>,
-        accountInfo: { email: string; nickname: string }
+        accountInfo: { email: string }
     ): Promise<void> {
         try {
             await axiosInst.djangoAxiosInst.post(
@@ -65,6 +43,27 @@ const actions: AccountActions = {
             );
         } catch (error) {
             console.error("신규 계정 생성 실패:", error);
+            throw error;
+        }
+    },
+
+    async requestFindEmailByAccountIdToDjango(
+        context: ActionContext<any, any>,
+        accountId: number
+    ): Promise<void> {
+        try {
+            const response: AxiosResponse<any> =
+                await axiosInst.djangoAxiosInst.post("/account/find-email", {
+                    accountId: accountId,
+                });
+            const email = response.data;
+
+            return email;
+        } catch (error) {
+            console.error(
+                "Error occured in requestFindEmailByAccountIdToDjango: ",
+                error
+            );
             throw error;
         }
     },

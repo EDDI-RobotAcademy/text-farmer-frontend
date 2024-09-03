@@ -1,9 +1,9 @@
 export interface AccountState {
-    isLoggedIn: boolean
+    isLoggedIn: boolean;
 }
 
 const state: AccountState = {
-    isLoggedIn: false
-}
+    isLoggedIn: false,
+};
 
-export default state
+export default state;

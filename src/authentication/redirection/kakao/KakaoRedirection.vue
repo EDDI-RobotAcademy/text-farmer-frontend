@@ -16,20 +16,22 @@ export default {
             "requestAddRedisAccessTokenToDjango",
         ]),
         ...mapActions(accountModule, ["requestEmailDuplicationCheckToDjango"]),
+
         async setRedirectData() {
             const code = this.$route.query.code;
 
             await this.requestAccessTokenToDjangoRedirection({ code });
             const userInfo = await this.requestUserInfoToDjango();
+
             const email = userInfo.kakao_account.email;
-            console.log("email:", email);
+
+            console.log("11111email :", email);
 
             const isEmailDuplication =
                 await this.requestEmailDuplicationCheckToDjango(email);
-            // 데이터 타입과 값의 일치가 필요함 '===',
-            // 값만 일치하면 됨 '==' (0, NULL, None, [])
+
             if (isEmailDuplication === true) {
-                console.log("기존 가입 고객입니다!");
+                console.log("기존 가입 고객입니다.");
                 const accessToken = localStorage.getItem("accessToken");
 
                 if (accessToken) {
@@ -41,14 +43,14 @@ export default {
                     console.error("AccessToken is missing");
                 }
 
-                this.$router.push("/movie/list");
+                this.$router.push("/chatting-room");
             } else {
-                console.log("신규 가입 고객입니다!");
-
-                this.$router.push("/account/register");
+                console.log("신규 가입 고객입니다.");
+                this.$router.push("/chatting-room");
             }
         },
     },
+
     async created() {
         await this.setRedirectData();
     },
