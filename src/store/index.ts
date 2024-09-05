@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import accountModule from "@/account/store/accountModule";
 import authenticationModule from "@/authentication/store/authenticationModule";
-import aiCommandModule from "@/gatherEverything/store/gatherEverthingModule";
+import aiCommandModule from "@/chattingRoom/store/gatherEverthingModule";
 
 export default createStore({
     state: {},

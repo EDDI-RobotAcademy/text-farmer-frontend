@@ -1,15 +1,11 @@
 <template>
     <v-app-bar v-if="hideMenuBar" color="black" app dark height="40">
         <v-btn @click="goToHome">
-            <v-toolbar-title class="top-bar-text-title"> T–F </v-toolbar-title>
+            <v-toolbar-title class="top-bar-text-title">T–F</v-toolbar-title>
         </v-btn>
         <v-spacer></v-spacer>
 
-        <v-btn
-            v-if="!isAuthenticatedKakao && !isAuthenticatedNormal"
-            text
-            @click="signIn"
-        >
+        <v-btn v-if="!isAuthenticated" text @click="signIn">
             <v-icon left>mdi-login</v-icon>
             <span>LOGIN</span>
         </v-btn>
@@ -41,18 +37,19 @@ export default {
             isUserAuthenticated: localStorage.getItem("isUserAuthenticated"),
         };
     },
+
     computed: {
         hideMenuBar() {
-            const hiddenRoutes = ["/", "/account/login"];
+            const hiddenRoutes = ["/", "/account/login", "/chatting-room"];
 
             return !hiddenRoutes.includes(this.$route.path);
         },
-
-        ...mapState(authenticationModule, ["isAuthenticatedKakao"]),
-        ...mapState(accountModule, ["loginType", "isAuthenticatedNormal"]),
+        ...mapState(authenticationModule, ["isAuthenticated"]),
     },
+
     methods: {
-        ...mapActions(authenticationModule, ["requestKakaoLogoutToDjango"]),
+        ...mapActions(authenticationModule, ["requestLogoutToDjango"]),
+
         goToHome() {
             router.push("/");
         },
@@ -60,31 +57,21 @@ export default {
             router.push("/account/login");
         },
         signOut() {
-            if (localStorage.getItem("loginType") == "KAKAO") {
-                this.requestKakaoLogoutToDjango();
-                this.$store.state.authenticationModule.isAuthenticatedKakao = false;
-            }
-            if (localStorage.getItem("loginType") == "NORMAL") {
-                localStorage.removeItem("normalToken");
-                localStorage.removeItem("email");
-                localStorage.removeItem("loginType");
-                this.$store.state.accountModule.isAuthenticatedNormal = false;
-            }
+            this.requestLogoutToDjango();
             router.push("/");
         },
     },
+
     mounted() {
-        console.log("navigation bar mounted()");
         const userToken = localStorage.getItem("userToken");
         if (userToken) {
             console.log("You already has a userToken!");
-            this.$store.state.authenticationModule.isAuthenticatedKakao = true;
+            this.$store.state.authenticationModule.isAuthenticated = true;
         }
+    },
 
-        const normalToken = localStorage.getItem("normalToken");
-        if (normalToken) {
-            this.$store.state.accountModule.isAuthenticatedNormal = true;
-        }
+    beforeUnmount() {
+        window.removeEventListener("storage", this.updateLoginStatus);
     },
 };
 </script>
