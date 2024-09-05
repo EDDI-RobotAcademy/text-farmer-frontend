@@ -1,7 +1,8 @@
 <template>
-    <button class="loginButton">
-        <router-link to="/account/login">로그인</router-link>
-    </button>
+    <router-link to="/account/login" class="loginButtonRouter">
+        <button class="loginButton">로그인</button>
+    </router-link>
+
     <div class="section wrapper">
         <div class="content">
             <div class="panel panelT">
@@ -89,7 +90,7 @@ onMounted(() => {
         });
 
         gsap.to(".textT", {
-            duration: 0.1,
+            duration: 2.5,
             backgroundPosition: "100% 100%",
             ease: "power2.inOut",
             onComplete: () => {
@@ -228,6 +229,10 @@ onUnmounted(() => {
 
 body {
     margin: 0;
+}
+
+.loginButtonRouter {
+    cursor: pointer;
 }
 
 .loginButton {

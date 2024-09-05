@@ -12,6 +12,7 @@
         "@mdi/font": "5.9.55",
         "axios": "^1.7.2",
         "core-js": "^3.8.3",
+        "epic-spinners": "^2.0.0",
         "gsap": "^3.12.2",
         "roboto-fontface": "*",
         "smooth-scrollbar": "^8.8.4",
