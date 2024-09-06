@@ -2,7 +2,6 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeRoutes from "@/home/router/HomeRoutes";
 import AccountRoutes from "@/account/router/AccountRoutes";
 import AuthenticationRoutes from "@/authentication/router/AuthenticationRoutes";
-import GatherEverythingRoutes from "@/gatherEverything/router/GatherEverythingRoutes";
 import ChattingRoomRoutes from "@/chattingRoom/router/ChattingRoomRoutes";
 
 const routes: Array<RouteRecordRaw> = [
@@ -10,7 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     ...AccountRoutes,
     ...AuthenticationRoutes,
     ...ChattingRoomRoutes,
-    ...GatherEverythingRoutes,
 ];
 
 const router = createRouter({

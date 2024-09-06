@@ -1,19 +1,6 @@
 <template>
-    <div class="container" v-if="mbti === 'T'">
-        <div class="leftWrapper">
-            <video
-                :src="require('@/assets/videos/gtp.mp4')"
-                autoplay
-                muted
-                loop
-                class="video"
-            />
-            <div class="adText">
-                <div>인생의 마지막 순간</div>
-                <div>GTP와 함께</div>
-                <div>풀매수 드가자~</div>
-            </div>
-        </div>
+    <div class="container">
+        <div class="leftWrapper">123</div>
 
         <div class="centerWrapper">
             <div class="menu">
@@ -58,7 +45,7 @@
                 </v-menu>
             </div>
 
-            <div class="chattingBox">
+            <div class="chattingBox" v-if="mbti === 'T'">
                 <div
                     v-for="(message, index) in chatLog"
                     :key="index"
@@ -88,6 +75,7 @@
                 class="userInput"
                 cols="4"
                 @keydown="pressEnter"
+                v-if="mbti === 'T'"
             />
 
             <div class="caution">
@@ -95,24 +83,7 @@
             </div>
         </div>
 
-        <div class="rightWrapper">
-            <video
-                :src="require('@/assets/videos/quack.mp4')"
-                autoplay
-                muted
-                loop
-                class="video blinking"
-            />
-            <div class="adText">
-                <div>60만원 충전시</div>
-                <div>10만 포인트 무료</div>
-                <div>인생도박 드가자~</div>
-            </div>
-        </div>
-    </div>
-
-    <div v-if="mbti === 'F'" width="100vw" height="100vh">
-        <img :src="require('@/assets/images/fixed/ghost.png')" width="100%" />
+        <div class="rightWrapper">123</div>
     </div>
 </template>
 
@@ -145,7 +116,7 @@ export default {
         if (userToken) {
             await this.requestUserInfoByUserToken();
         } else {
-            await this.requestUserInfo().then(async () => {
+            await this.requestUserInfoByAccessToken().then(async () => {
                 await this.registerUserInfo();
             });
         }
@@ -293,10 +264,6 @@ export default {
             }
         },
     },
-
-    mounted() {
-        document.getElementsByTagName("video")[0].playbackRate = 0.4;
-    },
 };
 </script>
 
@@ -353,6 +320,10 @@ export default {
     padding-left: 20px;
     padding-right: 20px;
     background-color: var(--secondary-color);
+}
+
+.menu > span {
+    font-weight: bold;
 }
 
 .chattingBox {
