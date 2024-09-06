@@ -90,7 +90,7 @@ onMounted(() => {
         });
 
         gsap.to(".textT", {
-            duration: 2.5,
+            duration: 0.1,
             backgroundPosition: "100% 100%",
             ease: "power2.inOut",
             onComplete: () => {
@@ -132,8 +132,7 @@ onMounted(() => {
 
                 gsap.to(".textT", {
                     x: () => {
-                        // return textTRect.width - textExtRect.width;
-                        return textExtRect.width - textTRect.right;
+                        return 0 - textExtRect.width / 2 - textTRect.width / 2;
                     },
                     scrollTrigger: {
                         trigger: ".panelT",
@@ -175,7 +174,9 @@ onMounted(() => {
         });
 
         gsap.to(".textFarmer", {
-            x: () => -window.innerWidth,
+            x: () => {
+                return -window.innerWidth;
+            },
             scrollTrigger: {
                 trigger: ".panelNothing",
                 start: "center+=100% 0%",
