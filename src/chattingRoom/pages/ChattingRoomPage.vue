@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="leftWrapper">123</div>
+        <div class="leftWrapper"></div>
 
         <div class="centerWrapper">
             <div class="menu">
@@ -35,7 +35,7 @@
                                 </span>
                             </v-list-item>
 
-                            <v-list-item>
+                            <v-list-item @click="logout">
                                 <v-list-item-title>
                                     로그아웃
                                 </v-list-item-title>
@@ -45,7 +45,7 @@
                 </v-menu>
             </div>
 
-            <div class="chattingBox" v-if="mbti === 'T'">
+            <div class="chattingBox">
                 <div
                     v-for="(message, index) in chatLog"
                     :key="index"
@@ -75,7 +75,6 @@
                 class="userInput"
                 cols="4"
                 @keydown="pressEnter"
-                v-if="mbti === 'T'"
             />
 
             <div class="caution">
@@ -83,12 +82,13 @@
             </div>
         </div>
 
-        <div class="rightWrapper">123</div>
+        <div class="rightWrapper"></div>
     </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import router from "@/router";
 import { SelfBuildingSquareSpinner } from "epic-spinners";
 
 const aiCommandModule = "aiCommandModule";
@@ -137,6 +137,7 @@ export default {
             "requestUserInfoToDjango",
             "requestAddRedisAccessTokenToDjango",
             "requestAccountByRedisAccessTokenToDjango",
+            "requestLogoutToDjango",
         ]),
         ...mapActions(accountModule, [
             "requestCreateNewAccountToDjango",
@@ -189,6 +190,11 @@ export default {
                 email,
                 accessToken,
             });
+        },
+
+        logout() {
+            this.requestLogoutToDjango();
+            router.push("/");
         },
 
         async onClickRequestAI() {
@@ -280,8 +286,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    background-color: var(--secondary-color);
+    background: -webkit-linear-gradient(to bottom, #d6a4a4, #dae2f8);
+    background: linear-gradient(to bottom, #d6a4a4, #dae2f8);
 }
 
 .video {
@@ -336,14 +342,24 @@ export default {
     overflow: auto;
 }
 
+.chattingBox2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin-top: 20px;
+    overflow: auto;
+}
+
 .rightWrapper {
     width: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    background-color: var(--secondary-color);
+    background: -webkit-linear-gradient(to bottom, #d6a4a4, #dae2f8);
+    background: linear-gradient(to bottom, #d6a4a4, #dae2f8);
 }
 
 .userInput {
@@ -505,114 +521,5 @@ export default {
     right: 10px;
     background: #ffffff;
     transition: left 0.4s 0.2s, right 0.5s, background 0.35s -0.1s;
-}
-
-.switcher.switcher-2 {
-    overflow: hidden;
-}
-
-.switcher.switcher-2 input {
-    transition: background-color 0s 0.5s;
-}
-
-.switcher.switcher-2 input:before {
-    color: #1e1e1e;
-}
-
-.switcher.switcher-2 input:after {
-    color: #ffffff;
-}
-
-.switcher.switcher-2 input:checked {
-    background-color: #ffffff;
-}
-
-.switcher.switcher-2 input:checked + label {
-    background: #ffffff;
-    -webkit-animation: turn-on 0.5s ease-out;
-    animation: turn-on 0.5s ease-out;
-}
-
-@-webkit-keyframes turn-on {
-    0% {
-        left: 100%;
-    }
-    100% {
-        left: 0%;
-    }
-}
-
-@keyframes turn-on {
-    0% {
-        left: 100%;
-    }
-    100% {
-        left: 0%;
-    }
-}
-
-.switcher.switcher-2 input:not(:checked) {
-    background: #1e1e1e;
-}
-
-.switcher.switcher-2 input:not(:checked) + label {
-    background: #1e1e1e;
-    -webkit-animation: turn-off 0.5s ease-out;
-    animation: turn-off 0.5s ease-out;
-}
-
-@-webkit-keyframes turn-off {
-    0% {
-        right: 100%;
-    }
-    100% {
-        right: 0%;
-    }
-}
-
-@keyframes turn-off {
-    0% {
-        right: 100%;
-    }
-    100% {
-        right: 0%;
-    }
-}
-
-.switcher.switcher-2 label {
-    top: 0px;
-    width: 200px;
-    height: 50px;
-    border-radius: 25px;
-}
-
-.blinking {
-    -webkit-animation: blink 0.5s ease-in-out infinite alternate;
-    -moz-animation: blink 0.5s ease-in-out infinite alternate;
-    animation: blink 0.5s ease-in-out infinite alternate;
-}
-@-webkit-keyframes blink {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@-moz-keyframes blink {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes blink {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 </style>
