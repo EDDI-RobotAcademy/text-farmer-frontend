@@ -1,16 +1,16 @@
-import { createStore } from 'vuex'
-import boardModule from "@/board/store/boardModule";
+import { createStore } from "vuex";
+import accountModule from "@/account/store/accountModule";
+import authenticationModule from "@/authentication/store/authenticationModule";
+import aiCommandModule from "@/chattingRoom/store/gatherEverthingModule";
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-    boardModule,
-  }
-})
+    state: {},
+    getters: {},
+    mutations: {},
+    actions: {},
+    modules: {
+        accountModule,
+        authenticationModule,
+        aiCommandModule,
+    },
+});
